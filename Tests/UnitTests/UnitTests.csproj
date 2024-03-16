@@ -26,4 +26,9 @@
       <ProjectReference Include="..\..\src\core\tools\VEA.core.tools.OperationResult\VEA.core.tools.OperationResult.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Common\Values\" />
+      <Folder Include="Features\" />
+    </ItemGroup>
+
 </Project>
