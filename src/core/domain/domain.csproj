@@ -7,11 +7,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Aggregates\Events\" />
-      <Folder Include="Aggregates\Guests\" />
+      <Folder Include="Aggregates\Users\" />
       <Folder Include="Aggregates\Locations\" />
       <Folder Include="Common\Contracts\" />
-      <Folder Include="Common\Values\" />
       <Folder Include="Services\" />
     </ItemGroup>
 
