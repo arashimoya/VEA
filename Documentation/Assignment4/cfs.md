@@ -37,7 +37,15 @@
   * [x] S2
   * [x] F1
   * [x] F2
-* [ ] UC7
+* [ ] UC7 - Set maximum number of guests
+  * [x] S1
+  * [x] S2
+  * [x] S3
+  * [x] F1
+  * [x] F2
+  * [ ] F3 need location implemetation
+  * [x] F4
+  * [x] F5
 * [ ] 
 * [ ] 
 * [ ] 
