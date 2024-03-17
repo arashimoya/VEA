@@ -12,6 +12,11 @@ public class EventDescription : ValueObject
         Value = value;
         Validate();
     }
+
+    public static EventDescription DefaultDescription()
+    {
+        return new EventDescription("");
+    }
     
     public static Result<EventDescription> Of(string value)
     {

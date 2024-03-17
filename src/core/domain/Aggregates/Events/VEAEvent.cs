@@ -21,8 +21,8 @@ public class VeaEvent : Aggregate<EventId>
     {
         MaximumNumberOfGuests = 5;
         Status = EventStatus.Draft;
-        Title = EventTitle.Of("Working Title").GetSuccess();
-        Description = EventDescription.Of("").GetSuccess();
+        Title = EventTitle.DefaultTitle();
+        Description = EventDescription.DefaultDescription();
         Visibility = EventVisibility.Private;
     }
 
@@ -88,6 +88,11 @@ public class VeaEvent : Aggregate<EventId>
         if (Status == EventStatus.Cancelled)
             return ResultVoid.SingleFailure(Errors.CancelledEventCannotBeModifiedError());
         MaximumNumberOfGuests = max;
+        return new ResultVoid();
+    }
+
+    public ResultVoid MakeReady()
+    {
         return new ResultVoid();
     }
 

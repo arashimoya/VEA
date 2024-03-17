@@ -26,4 +26,24 @@ public class Errors
     {
         return new Error(400, 10004, "Maximum number of guests cannot exceed 50");
     }
+    
+    public static Error TitleNotSet()
+    {
+        return new Error(400, 10005, "Title is not set");
+    }
+    
+    public static Error DefaultTitle()
+    {
+        return new Error(400, 10006, "Cannot ready an event with a default title");
+    }
+    
+    public static Error DescriptionNotSet()
+    {
+        return new Error(400, 10005, "Description is not set");
+    }
+    
+    public static Error DefaultDescription()
+    {
+        return new Error(400, 10006, "Cannot ready an event with a default description");
+    }
 }

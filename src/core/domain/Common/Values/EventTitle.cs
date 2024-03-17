@@ -14,6 +14,11 @@ public class EventTitle : ValueObject
         Validate();
     }
 
+    public static EventTitle DefaultTitle()
+    {
+        return new EventTitle("Working Title");
+    }
+
     public static Result<EventTitle> Of(string value)
     {
         try
