@@ -28,11 +28,11 @@
   * [x] F1
   * [x] F2
   * [x] F3
-* [ ] UC4 - Update start/end
-* [ ] UC5 - Make event public - need to update domain diagram
+* [x] UC4 - Update start/end | update diagram
+* [x] UC5 - Make event public - need to update domain diagram
   * [x] S1
   * [x] F1
-* [ ] UC6 - Make event private
+* [x] UC6 - Make event private
   * [x] S1
   * [x] S2
   * [x] F1
