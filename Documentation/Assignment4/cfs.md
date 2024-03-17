@@ -12,7 +12,15 @@
   * [x] S3
     * [x] EventDescription
   * [x] S4
-* [ ] UC2 - Update Title
+* [x] UC2 - Update Title
+  * [x] S1
+  * [x] S2
+  * [x] F1
+  * [x] F2
+  * [x] F3
+  * [x] F4
+  * [x] F5
+  * [x] F6
 * [ ] UC3 - Update Description
 * [ ] UC4 - Update start/end
 * [ ] UC5 - Make event public

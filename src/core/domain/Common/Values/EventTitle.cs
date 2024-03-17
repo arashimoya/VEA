@@ -30,11 +30,14 @@ public class EventTitle : ValueObject
     private void Validate()
     {
         if (Value == null)
-            throw new ArgumentNullException();
-        if (Value.Length > 256)
-            throw new ArgumentException("Title cannot be longer than 256.");
+            throw new ArgumentNullException(null,"Title is null!");
+        if (Value.Length > 75)
+            throw new ArgumentException("Title too long! Length should be between 3 and 75");
         if (Value.Length == 0)
             throw new ArgumentException("Title cannot be empty.");
+        if (Value.Length < 3)
+            throw new ArgumentException("Title too short! Length should be between 3 and 75");
+        
     }
     protected override IEnumerable<object> GetEqualityComponents()
     {

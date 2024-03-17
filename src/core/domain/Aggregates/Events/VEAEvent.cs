@@ -11,8 +11,8 @@ namespace domain.Aggregates.Events;
 public class VeaEvent : Aggregate<EventId>
 {
     public int MaximumNumberOfGuests { get; }
-    public EventStatus Status { get; }
-    public EventTitle Title { get; }
+    public EventStatus Status { get; private set; }
+    public EventTitle Title { get; private set; }
     public EventDescription Description { get; }
     public bool IsPrivate { get; }
 
@@ -28,10 +28,21 @@ public class VeaEvent : Aggregate<EventId>
 
     public ResultVoid UpdateTitle(EventTitle title)
     {
-        throw new NotImplementedException();
+        if (Status == EventStatus.Active)
+            return ResultVoid.SingleFailure(new Error(405, 405, "Active event cannot be modified"));
+        if (Status == EventStatus.Cancelled)
+            return ResultVoid.SingleFailure(new Error(405, 405, "Cancelled event cannot be modified"));
+        if (title == null)
+            return ResultVoid.SingleFailure(new Error(400, 400, "Title is null!"));
+
+        Title = title;
+        Status = EventStatus.Draft;
+
+        return new ResultVoid();
     }
 
-    internal VeaEvent(EventId id, int maximumNumberOfGuests, EventStatus status, EventTitle title, EventDescription description, bool isPrivate) : base(id)
+    internal VeaEvent(EventId id, int maximumNumberOfGuests, EventStatus status, EventTitle title,
+        EventDescription description, bool isPrivate) : base(id)
     {
         MaximumNumberOfGuests = maximumNumberOfGuests;
         Status = status;
