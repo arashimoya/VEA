@@ -69,7 +69,7 @@ public class OperationResultTests
     {
         var dummy = new DummyClass("test");
         var resultDummy = Result<DummyClass>.Success(dummy);
-        var result = resultDummy.getOrElse(new DummyClass("should not return this one"));
+        var result = resultDummy.GetOrElse(new DummyClass("should not return this one"));
 
         Assert.Equal(dummy, result);
     }
@@ -79,7 +79,7 @@ public class OperationResultTests
     {
         var toReturn = new DummyClass("should return this one");
         var resultDummy = new Result<DummyClass>([new Error(404, 1000, "test")]);
-        var result = resultDummy.getOrElse(toReturn);
+        var result = resultDummy.GetOrElse(toReturn);
 
         Assert.Equal(toReturn, result);
     }

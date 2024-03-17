@@ -2,7 +2,7 @@ namespace VEA.core.tools.OperationResult;
 
 public class ResultVoid
 {
-    private List<Error> Errors { get; }
+    public List<Error> Errors { get; }
 
     public ResultVoid()
     {

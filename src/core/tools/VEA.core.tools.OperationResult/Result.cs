@@ -17,7 +17,7 @@ public class Result<T> : ResultVoid
     {
         if (Payload != null) return Payload;
 
-        throw new Exception("Unexpected behaviour occurred.");
+        throw new Exception("No payload inside.");
     }
 
     public override bool IsSuccess()
@@ -30,8 +30,13 @@ public class Result<T> : ResultVoid
         return new Result<T>(payload);
     }
 
-    public T getOrElse(T toReturn)
+    public T GetOrElse(T toReturn)
     {
         return Payload ?? toReturn;
+    }
+    
+    public new static Result<T> SingleFailure(Error error)
+    {
+        return new Result<T>([error]);
     }
 }
