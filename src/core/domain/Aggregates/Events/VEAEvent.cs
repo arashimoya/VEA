@@ -13,7 +13,7 @@ public class VeaEvent : Aggregate<EventId>
     public int MaximumNumberOfGuests { get; }
     public EventStatus Status { get; private set; }
     public EventTitle Title { get; private set; }
-    public EventDescription Description { get; }
+    public EventDescription Description { get; private set; }
     public bool IsPrivate { get; }
 
 
@@ -22,7 +22,7 @@ public class VeaEvent : Aggregate<EventId>
         MaximumNumberOfGuests = 5;
         Status = EventStatus.Draft;
         Title = EventTitle.Of("Working Title").GetSuccess();
-        Description = new EventDescription("");
+        Description = EventDescription.Of("").GetSuccess();
         IsPrivate = true;
     }
 
@@ -38,6 +38,18 @@ public class VeaEvent : Aggregate<EventId>
         Title = title;
         Status = EventStatus.Draft;
 
+        return new ResultVoid();
+    }
+    
+    public ResultVoid UpdateDescription(EventDescription description)
+    {
+        if (Status == EventStatus.Active)
+            return ResultVoid.SingleFailure(new Error(405, 405, "Active event cannot be modified"));
+        if (Status == EventStatus.Cancelled)
+            return ResultVoid.SingleFailure(new Error(405, 405, "Cancelled event cannot be modified"));
+        
+        Description = description;
+        Status = EventStatus.Draft;
         return new ResultVoid();
     }
 

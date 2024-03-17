@@ -12,5 +12,7 @@
     &lt;TestId&gt;xUnit::F9DB7794-66EA-4BBC-BBEB-CFC1C782BA47::net8.0::UnitTests.Features.Event.CreateEvent.CreateEventAggregateTests.should_create_an_event_with_max_guests_of_5_and_status_draft&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::F9DB7794-66EA-4BBC-BBEB-CFC1C782BA47::net8.0::UnitTests.Features.Event.CreateEvent.CreateEventAggregateTests&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::F9DB7794-66EA-4BBC-BBEB-CFC1C782BA47::net8.0::UnitTests.Features.Event.UpdateTitle.UpdateTitleAggregateTest.should_update_title_s2&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::F9DB7794-66EA-4BBC-BBEB-CFC1C782BA47::net8.0::UnitTests.Features.Event.UpdateTitle.UpdateTitleAggregateTest&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::F9DB7794-66EA-4BBC-BBEB-CFC1C782BA47::net8.0::UnitTests.Features.Event.UpdateDescription.UpdateDescAggregateTest&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

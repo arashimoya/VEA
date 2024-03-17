@@ -21,7 +21,13 @@
   * [x] F4
   * [x] F5
   * [x] F6
-* [ ] UC3 - Update Description
+* [x] UC3 - Update Description
+  * [x] S1
+  * [x] S2
+  * [x] S3
+  * [x] F1
+  * [x] F2
+  * [x] F3
 * [ ] UC4 - Update start/end
 * [ ] UC5 - Make event public
 * [ ] UC6 - Make event private

@@ -39,7 +39,7 @@ public class EventTitleTest
         var tooLongString = "DU7LYjw8rDt5iUhAXniRaRPKKD59n1VxuAKvBVHP4fnAmi1jjATyBiT5nDPEnEBr8LtbVJbrTkT4B2PfqAtHCEJ4XFj6A0DevNpxrpLCcdwdwwJp7XZ3vpieDBDjzYLfWqUwd2HXGj9mDkFbLtGEBRP3QUcY1dxQjv4S7KRd0hC8UX9rMMM2yuXL9wwR5Lef79D5gCftVp8hWW6v3a8Qwuv1LwazEAK5zXWYhKk3BkDf5uxERVubbCHBxyU8ddXyZLYM8LHqgZ60Lg2AnUJ2a370";
         var result = EventTitle.Of(tooLongString);
         Assert.False(result.IsSuccess());
-        Assert.Equal("Title cannot be longer than 256.",result.Errors.First().DeveloperMessage);
+        Assert.Equal("Title too long! Length should be between 3 and 75",result.Errors.First().DeveloperMessage);
     }
     
 }
