@@ -14,7 +14,7 @@ public class VeaEvent : Aggregate<EventId>
     public EventStatus Status { get; private set; }
     public EventTitle Title { get; private set; }
     public EventDescription Description { get; private set; }
-    public bool IsPrivate { get; }
+    public EventVisibility Visibility { get; private set; }
 
 
     public VeaEvent(EventId id) : base(id)
@@ -23,7 +23,7 @@ public class VeaEvent : Aggregate<EventId>
         Status = EventStatus.Draft;
         Title = EventTitle.Of("Working Title").GetSuccess();
         Description = EventDescription.Of("").GetSuccess();
-        IsPrivate = true;
+        Visibility = EventVisibility.Private;
     }
 
     public ResultVoid UpdateTitle(EventTitle title)
@@ -53,13 +53,33 @@ public class VeaEvent : Aggregate<EventId>
         return new ResultVoid();
     }
 
+    public ResultVoid MakePublic()
+    {
+        if (Status == EventStatus.Cancelled)
+        {
+            return ResultVoid.SingleFailure(new Error(405, 405, "Cancelled event cannot be modified"));
+        }
+        Visibility = EventVisibility.Public;
+        return new ResultVoid();
+    }
+
+    public bool IsPrivate()
+    {
+        return Visibility switch
+        {
+            EventVisibility.Private => true,
+            EventVisibility.Public => false,
+            _ => true
+        };
+    }
+
     internal VeaEvent(EventId id, int maximumNumberOfGuests, EventStatus status, EventTitle title,
-        EventDescription description, bool isPrivate) : base(id)
+        EventDescription description, EventVisibility visibility) : base(id)
     {
         MaximumNumberOfGuests = maximumNumberOfGuests;
         Status = status;
         Title = title;
         Description = description;
-        IsPrivate = isPrivate;
+        Visibility = visibility;
     }
 }

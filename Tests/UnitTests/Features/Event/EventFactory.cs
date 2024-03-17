@@ -11,7 +11,7 @@ public class EventFactory
     private EventStatus _status;
     private EventTitle _title;
     private EventDescription _description;
-    private bool _isPrivate;
+    private EventVisibility _isPrivate;
 
     public EventFactory WithId(EventId id)
     {
@@ -41,7 +41,7 @@ public class EventFactory
         return this;
     }
     
-    public EventFactory WithIsPrivate(bool isPrivate)
+    public EventFactory WithIsPrivate(EventVisibility isPrivate)
     {
         _isPrivate = isPrivate;
         return this;

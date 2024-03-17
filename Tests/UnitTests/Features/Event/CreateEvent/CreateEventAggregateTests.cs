@@ -59,7 +59,7 @@ public class CreateEventAggregateTests
         var result = new VeaEvent(id);
 
         //Then
-        Assert.True(result.IsPrivate);
+        Assert.Equal(EventVisibility.Private,result.Visibility);
         Assert.NotNull(result.Id);
     }
     
