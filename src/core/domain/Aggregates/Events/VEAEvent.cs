@@ -107,6 +107,16 @@ public class VeaEvent : Aggregate<EventId>
         Status = EventStatus.Ready;
         return new ResultVoid();
     }
+    
+    public ResultVoid Activate(ICurrentTimeProvider currentTimeProvider)
+    {
+        var result = MakeReady(currentTimeProvider);
+        if (!result.IsSuccess()) return result;
+        
+        Status = EventStatus.Active;
+        return new ResultVoid();
+
+    }
 
     private IEnumerable<Error> CheckErrorsForMakingReady(ICurrentTimeProvider currentTimeProvider)
     {

@@ -52,6 +52,12 @@
   * [x] F2
   * [x] F3
   * [x] F4
+* [x] UC8 Activate Event
+  * [x] S1
+  * [x] S2
+  * [x] S3
+  * [x] F1
+  * [x] F2
 * [ ] 
 * [ ] 
 * [ ] 
