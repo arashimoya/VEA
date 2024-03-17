@@ -13,9 +13,9 @@ public class MakeReadyAggregateTest
     {
         //given 
         var evt = VeaEvent.Create();
-        evt.UpdateTitle(TestTitle());
-        evt.UpdateDescription(TestDescription());
-        evt.UpdateTimes(TestInterval(), new StubCurrentTimeProvider());
+        evt.UpdateTitle(EventFactory.TestTitle());
+        evt.UpdateDescription(EventFactory.TestDescription());
+        evt.UpdateTimes(EventFactory.TestInterval(), new StubCurrentTimeProvider());
         evt.MakePublic();
         evt.SetMaximumNumberOfGuests(10);
 
@@ -73,7 +73,7 @@ public class MakeReadyAggregateTest
         stub.DateTime = stub.DateTime.AddHours(1);
         var evt = new EventFactory().WithId(new EventId())
             .WithStatus(EventStatus.Draft)
-            .WithTimes(TestInterval())
+            .WithTimes(EventFactory.TestInterval())
             .Build();
 
         var result = evt.MakeReady(stub);
@@ -99,60 +99,45 @@ public class MakeReadyAggregateTest
         Assert.Equal(EventStatus.Draft, evt.Status);
     }
 
-
-    private static EventDescription TestDescription()
-    {
-        return EventDescription.Of("description").GetSuccess();
-    }
-
-    private static EventInterval TestInterval()
-    {
-        var stub = new StubCurrentTimeProvider();
-        return EventInterval.of(stub.now(), stub.now().AddHours(3)).GetSuccess();
-    }
-
-    private static EventTitle TestTitle()
-    {
-        return EventTitle.Of("title").GetSuccess();
-    }
+    
 
     public static IEnumerable<object[]> F1NotSetOrDefaultValues()
     {
         //title
         yield return
         [
-            EventTitle.Default(), TestDescription(), TestInterval(), EventVisibility.Private, 25,
+            EventTitle.Default(), EventFactory.TestDescription(), EventFactory.TestInterval(), EventVisibility.Private, 25,
             Errors.TitleNotSetOrDefault()
         ];
         yield return
         [
-            null!, TestDescription(), TestInterval(), EventVisibility.Private, 25, Errors.TitleNotSetOrDefault()
+            null!, EventFactory.TestDescription(), EventFactory.TestInterval(), EventVisibility.Private, 25, Errors.TitleNotSetOrDefault()
         ];
 
         //desc
         yield return
         [
-            TestTitle(), EventDescription.Default(), TestInterval(), EventVisibility.Private, 25,
+            EventFactory.TestTitle(), EventDescription.Default(), EventFactory.TestInterval(), EventVisibility.Private, 25,
             Errors.DescriptionNotSetOrDefault()
         ];
         yield return
         [
-            TestTitle(), null!, TestInterval(), EventVisibility.Private, 25, Errors.DescriptionNotSetOrDefault()
+            EventFactory.TestTitle(), null!, EventFactory.TestInterval(), EventVisibility.Private, 25, Errors.DescriptionNotSetOrDefault()
         ];
 
         //times
-        yield return [TestTitle(), TestDescription(), null!, EventVisibility.Private, 25, Errors.TimesNotSet()];
+        yield return [EventFactory.TestTitle(), EventFactory.TestDescription(), null!, EventVisibility.Private, 25, Errors.TimesNotSet()];
         
 
         //maxno
         yield return
         [
-            TestTitle(), TestDescription(), TestInterval(), EventVisibility.Private, 4,
+            EventFactory.TestTitle(), EventFactory.TestDescription(), EventFactory.TestInterval(), EventVisibility.Private, 4,
             Errors.InvalidMaxNumberOfGuests()
         ];
         yield return
         [
-            TestTitle(), TestDescription(), TestInterval(), EventVisibility.Private, 51,
+            EventFactory.TestTitle(), EventFactory.TestDescription(), EventFactory.TestInterval(), EventVisibility.Private, 51,
             Errors.InvalidMaxNumberOfGuests()
         ];
     }

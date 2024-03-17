@@ -1,6 +1,7 @@
 using domain.Aggregates.Events;
 using domain.Common.Enums;
 using domain.Common.Values;
+using UnitTests.Stubs;
 
 namespace UnitTests.Features.Event;
 
@@ -57,5 +58,21 @@ public class EventFactory
     public VeaEvent Build()
     {
         return new VeaEvent(_id, _maximumNumberOfGuests, _status, _title, _description, _isPrivate, _interval);
+    }
+    
+    public static EventDescription TestDescription()
+    {
+        return EventDescription.Of("description").GetSuccess();
+    }
+
+    public static EventInterval TestInterval()
+    {
+        var stub = new StubCurrentTimeProvider();
+        return EventInterval.of(stub.now(), stub.now().AddHours(3)).GetSuccess();
+    }
+
+    public static EventTitle TestTitle()
+    {
+        return EventTitle.Of("title").GetSuccess();
     }
 }
