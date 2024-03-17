@@ -12,6 +12,7 @@ public class EventFactory
     private EventTitle _title;
     private EventDescription _description;
     private EventVisibility _isPrivate;
+    private EventInterval _interval;
 
     public EventFactory WithId(EventId id)
     {
@@ -46,9 +47,15 @@ public class EventFactory
         _isPrivate = isPrivate;
         return this;
     }
+    
+    public EventFactory WithTimes(EventInterval interval)
+    {
+        _interval = interval;
+        return this;
+    }
 
     public VeaEvent Build()
     {
-        return new VeaEvent(_id, _maximumNumberOfGuests, _status, _title, _description, _isPrivate);
+        return new VeaEvent(_id, _maximumNumberOfGuests, _status, _title, _description, _isPrivate, _interval);
     }
 }

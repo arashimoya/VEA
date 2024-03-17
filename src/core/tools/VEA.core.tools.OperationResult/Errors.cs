@@ -27,25 +27,16 @@ public class Errors
         return new Error(400, 10004, "Maximum number of guests cannot exceed 50");
     }
     
-    public static Error TitleNotSet()
+    public static Error TitleNotSetOrDefault()
     {
-        return new Error(400, 10005, "Title is not set");
+        return new Error(400, 10005, "Title is not set or is a default value");
     }
     
-    public static Error DefaultTitle()
+    public static Error DescriptionNotSetOrDefault()
     {
-        return new Error(400, 10006, "Cannot ready an event with a default title");
+        return new Error(400, 10007, "Description is not set or is a default value");
     }
     
-    public static Error DescriptionNotSet()
-    {
-        return new Error(400, 10007, "Description is not set");
-    }
-    
-    public static Error DefaultDescription()
-    {
-        return new Error(400, 10008, "Cannot ready an event with a default description");
-    }
     
     public static Error StartTimeAfterEndTime()
     {
@@ -74,5 +65,20 @@ public class Errors
     public static Error DurationTooLong()
     {
         return new Error(400, 10014, "Duration cannot be longer than 10h");
+    }
+
+    public static Error TimesNotSet()
+    {
+        return new Error(400, 10015, "Times are not set");
+    }
+    
+    public static Error InvalidMaxNumberOfGuests()
+    {
+        return new Error(400, 10017, "Max number of guests should be between 5 and 50");
+    }
+    
+    public static Error StartPriorToTimeOfReadying()
+    {
+        return new Error(400, 10018, "Start date cannot be prior to readying the event.");
     }
 }

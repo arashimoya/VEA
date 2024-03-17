@@ -46,7 +46,12 @@
   * [ ] F3 need location implemetation
   * [x] F4
   * [x] F5
-* [ ] 
+* [x] UC8 Make Event Ready
+  * [x] S1
+  * [x] F1
+  * [x] F2
+  * [x] F3
+  * [x] F4
 * [ ] 
 * [ ] 
 * [ ] 

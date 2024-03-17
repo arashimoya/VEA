@@ -18,13 +18,18 @@ public class VeaEvent : Aggregate<EventId>
     public EventVisibility Visibility { get; private set; }
     public EventInterval Interval { get; private set; }
 
+    public static VeaEvent Create()
+    {
+        return new VeaEvent(new EventId());
+    }
+
 
     public VeaEvent(EventId id) : base(id)
     {
         MaximumNumberOfGuests = 5;
         Status = EventStatus.Draft;
-        Title = EventTitle.DefaultTitle();
-        Description = EventDescription.DefaultDescription();
+        Title = EventTitle.Default();
+        Description = EventDescription.Default();
         Visibility = EventVisibility.Private;
     }
 
@@ -79,9 +84,10 @@ public class VeaEvent : Aggregate<EventId>
         return new ResultVoid();
     }
 
+
     public ResultVoid SetMaximumNumberOfGuests(int max)
     {
-        if(Status == EventStatus.Active && max < MaximumNumberOfGuests)
+        if (Status == EventStatus.Active && max < MaximumNumberOfGuests)
             return ResultVoid.SingleFailure(Errors.MaximumNumberOfGuestsCannotBeDecreasedForActiveEvents());
         if (max < 5)
             return ResultVoid.SingleFailure(Errors.MaximumNumberOfGuestsCannotBeNegative());
@@ -93,9 +99,29 @@ public class VeaEvent : Aggregate<EventId>
         return new ResultVoid();
     }
 
-    public ResultVoid MakeReady()
+    public ResultVoid MakeReady(ICurrentTimeProvider currentTimeProvider)
     {
+        var errors = CheckErrorsForMakingReady(currentTimeProvider).ToList();
+        if (errors.Count > 0)
+            return new ResultVoid(errors);
+        Status = EventStatus.Ready;
         return new ResultVoid();
+    }
+
+    private IEnumerable<Error> CheckErrorsForMakingReady(ICurrentTimeProvider currentTimeProvider)
+    {
+        if (Title == null || Title.IsDefaultOrNullOrEmpty())
+            yield return Errors.TitleNotSetOrDefault();
+        if (Description == null || Description.IsDefaultOrNull())
+            yield return Errors.DescriptionNotSetOrDefault();
+        if (Interval != null && Interval.Start.CompareTo(currentTimeProvider.now()) < 0)
+            yield return Errors.StartPriorToTimeOfReadying();
+        if (Interval == null)
+            yield return Errors.TimesNotSet();
+        if (MaximumNumberOfGuests is < 5 or > 50)
+            yield return Errors.InvalidMaxNumberOfGuests();
+        if (Status == EventStatus.Cancelled)
+            yield return Errors.CancelledEventCannotBeModifiedError();
     }
 
     public ResultVoid UpdateTimes(EventInterval interval, ICurrentTimeProvider currentTimeProvider)
@@ -104,11 +130,10 @@ public class VeaEvent : Aggregate<EventId>
             return ResultVoid.SingleFailure(Errors.ActiveEventCannotBeModifiedError());
         if (Status == EventStatus.Cancelled)
             return ResultVoid.SingleFailure(Errors.CancelledEventCannotBeModifiedError());
-        if(interval.Start.CompareTo(currentTimeProvider.now()) < 0)
+        if (interval.Start.CompareTo(currentTimeProvider.now()) < 0)
             return ResultVoid.SingleFailure(Errors.StartInThePast());
         Interval = interval;
         return new ResultVoid();
-
     }
 
     public bool IsPrivate()
@@ -122,12 +147,13 @@ public class VeaEvent : Aggregate<EventId>
     }
 
     internal VeaEvent(EventId id, int maximumNumberOfGuests, EventStatus status, EventTitle title,
-        EventDescription description, EventVisibility visibility) : base(id)
+        EventDescription description, EventVisibility visibility, EventInterval interval) : base(id)
     {
         MaximumNumberOfGuests = maximumNumberOfGuests;
         Status = status;
         Title = title;
         Description = description;
         Visibility = visibility;
+        Interval = interval;
     }
 }

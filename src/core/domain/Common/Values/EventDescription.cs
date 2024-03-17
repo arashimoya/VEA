@@ -13,9 +13,14 @@ public class EventDescription : ValueObject
         Validate();
     }
 
-    public static EventDescription DefaultDescription()
+    public static EventDescription Default()
     {
         return new EventDescription("");
+    }
+    
+    public bool IsDefaultOrNull()
+    {
+        return string.IsNullOrEmpty(Value);
     }
     
     public static Result<EventDescription> Of(string value)

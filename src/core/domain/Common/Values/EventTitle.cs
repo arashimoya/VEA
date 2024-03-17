@@ -7,6 +7,7 @@ public class EventTitle : ValueObject
 {
     
     public string Value { get; }
+    private static string DefaultValue => "Working Title";
 
     private EventTitle(string value)
     {
@@ -14,9 +15,9 @@ public class EventTitle : ValueObject
         Validate();
     }
 
-    public static EventTitle DefaultTitle()
+    public static EventTitle Default()
     {
-        return new EventTitle("Working Title");
+        return new EventTitle(DefaultValue);
     }
 
     public static Result<EventTitle> Of(string value)
@@ -30,6 +31,11 @@ public class EventTitle : ValueObject
 
             return Result<EventTitle>.SingleFailure(new Error(400, 400, e.Message));
         }
+    }
+
+    public bool IsDefaultOrNullOrEmpty()
+    {
+        return string.IsNullOrEmpty(Value) || string.IsNullOrWhiteSpace(Value) || Value.Equals(DefaultValue);
     }
 
     private void Validate()
