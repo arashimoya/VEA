@@ -39,11 +39,40 @@ public class Errors
     
     public static Error DescriptionNotSet()
     {
-        return new Error(400, 10005, "Description is not set");
+        return new Error(400, 10007, "Description is not set");
     }
     
     public static Error DefaultDescription()
     {
-        return new Error(400, 10006, "Cannot ready an event with a default description");
+        return new Error(400, 10008, "Cannot ready an event with a default description");
+    }
+    
+    public static Error StartTimeAfterEndTime()
+    {
+        return new Error(400, 10009, "Start time cannot be after end time");
+    }
+    
+    public static Error TooShortDuration()
+    {
+        return new Error(400, 10010, "Duration cannot be shorter than 60 minutes.");
+    }
+    
+    public static Error StartBefore8AM()
+    {
+        return new Error(400, 10011, "Start cannot be before 8AM.");
+    }
+    
+    public static Error EndAfter1AM()
+    {
+        return new Error(400, 10012, "End cannot be after 1AM.");
+    }
+    
+    public static Error StartInThePast()
+    {
+        return new Error(400, 10013, "Start cannot be in the past unless you're a time traveller");
+    }
+    public static Error DurationTooLong()
+    {
+        return new Error(400, 10014, "Duration cannot be longer than 10h");
     }
 }

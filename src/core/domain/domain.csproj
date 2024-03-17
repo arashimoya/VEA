@@ -9,7 +9,6 @@
     <ItemGroup>
       <Folder Include="Aggregates\Users\" />
       <Folder Include="Aggregates\Locations\" />
-      <Folder Include="Common\Contracts\" />
       <Folder Include="Services\" />
     </ItemGroup>
 

@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using domain.Common.Bases;
+using domain.Common.Contracts;
 using domain.Common.Enums;
 using domain.Common.Values;
 using VEA.core.tools.OperationResult;
@@ -15,6 +16,7 @@ public class VeaEvent : Aggregate<EventId>
     public EventTitle Title { get; private set; }
     public EventDescription Description { get; private set; }
     public EventVisibility Visibility { get; private set; }
+    public EventInterval Interval { get; private set; }
 
 
     public VeaEvent(EventId id) : base(id)
@@ -94,6 +96,19 @@ public class VeaEvent : Aggregate<EventId>
     public ResultVoid MakeReady()
     {
         return new ResultVoid();
+    }
+
+    public ResultVoid UpdateTimes(EventInterval interval, ICurrentTimeProvider currentTimeProvider)
+    {
+        if (Status == EventStatus.Active)
+            return ResultVoid.SingleFailure(Errors.ActiveEventCannotBeModifiedError());
+        if (Status == EventStatus.Cancelled)
+            return ResultVoid.SingleFailure(Errors.CancelledEventCannotBeModifiedError());
+        if(interval.Start.CompareTo(currentTimeProvider.now()) < 0)
+            return ResultVoid.SingleFailure(Errors.StartInThePast());
+        Interval = interval;
+        return new ResultVoid();
+
     }
 
     public bool IsPrivate()

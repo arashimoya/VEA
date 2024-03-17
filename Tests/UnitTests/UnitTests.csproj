@@ -27,8 +27,4 @@
       <ProjectReference Include="..\..\src\core\tools\VEA.core.tools.OperationResult\VEA.core.tools.OperationResult.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Features\Event\UpdateStartEndTime\" />
-    </ItemGroup>
-
 </Project>
