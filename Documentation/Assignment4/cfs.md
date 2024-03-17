@@ -33,10 +33,10 @@
   * [x] S1
   * [x] F1
 * [ ] UC6 - Make event private
-  * [ ] S1
-  * [ ] S2
-  * [ ] F2
-  * [ ] F2
+  * [x] S1
+  * [x] S2
+  * [x] F1
+  * [x] F2
 * [ ] UC7
 * [ ] 
 * [ ] 

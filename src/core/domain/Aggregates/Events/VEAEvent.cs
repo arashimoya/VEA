@@ -62,6 +62,19 @@ public class VeaEvent : Aggregate<EventId>
         Visibility = EventVisibility.Public;
         return new ResultVoid();
     }
+    
+    public ResultVoid MakePrivate()
+    {
+        if (Status == EventStatus.Active)
+            return ResultVoid.SingleFailure(new Error(405, 405, "Active event cannot be modified"));
+        if (Status == EventStatus.Cancelled)
+            return ResultVoid.SingleFailure(new Error(405, 405, "Cancelled event cannot be modified"));
+        if(Visibility == EventVisibility.Private)
+            return new ResultVoid();
+        Visibility = EventVisibility.Private;
+        Status = EventStatus.Draft;
+        return new ResultVoid();
+    }
 
     public bool IsPrivate()
     {
@@ -81,5 +94,10 @@ public class VeaEvent : Aggregate<EventId>
         Title = title;
         Description = description;
         Visibility = visibility;
+    }
+
+    private void validateStatus()
+    {
+        
     }
 }
