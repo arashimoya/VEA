@@ -70,6 +70,12 @@
   * [ ] F5 - needs a db to know if already registered
   * [x] F6
   * [x] F7
-* [ ] 
+* [x] UC11
+  * [x] S1
+  * [x] F1
+  * [x] F2
+  * [x] F3
+  * [x] F4
+  * [x] F5
 * [ ] 
 * [ ] 

@@ -1,6 +1,8 @@
 using domain.Aggregates.Events;
+using domain.Aggregates.Users;
 using domain.Common.Enums;
 using domain.Common.Values;
+using UnitTests.Features.UserTest;
 using UnitTests.Stubs;
 
 namespace UnitTests.Features.Event;
@@ -14,6 +16,7 @@ public class EventFactory
     private EventDescription _description;
     private EventVisibility _isPrivate;
     private EventInterval _interval;
+    private List<User> _guests;
 
     public EventFactory WithId(EventId id)
     {
@@ -54,10 +57,16 @@ public class EventFactory
         _interval = interval;
         return this;
     }
+    
+    public EventFactory WithGuests(List<User> users)
+    {
+        _guests = users;
+        return this;
+    }
 
     public VeaEvent Build()
     {
-        return new VeaEvent(_id, _maximumNumberOfGuests, _status, _title, _description, _isPrivate, _interval);
+        return new VeaEvent(_id, _maximumNumberOfGuests, _status, _title, _description, _isPrivate, _interval, _guests);
     }
     
     public static EventDescription TestDescription()
@@ -74,5 +83,11 @@ public class EventFactory
     public static EventTitle TestTitle()
     {
         return EventTitle.Of("title").GetSuccess();
+    }
+    
+    public static User TestUser()
+    {
+        return new User(UserFactory.TestFirstName(), UserFactory.TestLastName(), UserFactory.TestViaEmail(),
+            new UserId());
     }
 }

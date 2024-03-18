@@ -1,4 +1,5 @@
 using System.Runtime.CompilerServices;
+using domain.Aggregates.Users;
 using domain.Common.Bases;
 using domain.Common.Contracts;
 using domain.Common.Enums;
@@ -17,6 +18,8 @@ public class VeaEvent : Aggregate<EventId>
     public EventDescription Description { get; private set; }
     public EventVisibility Visibility { get; private set; }
     public EventInterval Interval { get; private set; }
+    
+    public List<User> Guests { get; private set; }
 
     public static VeaEvent Create()
     {
@@ -31,6 +34,7 @@ public class VeaEvent : Aggregate<EventId>
         Title = EventTitle.Default();
         Description = EventDescription.Default();
         Visibility = EventVisibility.Private;
+        Guests = new List<User>();
     }
 
     public ResultVoid UpdateTitle(EventTitle title)
@@ -156,8 +160,37 @@ public class VeaEvent : Aggregate<EventId>
         };
     }
 
+    public ResultVoid RegisterGuestTo(User user, ICurrentTimeProvider currentTimeProvider)
+    {
+        if (!Status.Equals(EventStatus.Active))
+        {
+            return ResultVoid.SingleFailure(Errors.EventNotActive());
+        }
+        if (MaximumNumberOfGuests == Guests.Count)
+        {
+            return ResultVoid.SingleFailure(Errors.CapacityReached());
+        }
+
+        if (Interval.Start.CompareTo(currentTimeProvider.now()) < 0)
+        {
+            return ResultVoid.SingleFailure(Errors.OngoingEvent());
+        }
+
+        if (IsPrivate())
+        {
+            return ResultVoid.SingleFailure(Errors.PrivateEvent());
+        }
+
+        if (Guests.Contains(user))
+        {
+            return ResultVoid.SingleFailure(Errors.AlreadyParticipating());
+        }
+        Guests.Add(user);
+        return new ResultVoid();
+    }
+
     internal VeaEvent(EventId id, int maximumNumberOfGuests, EventStatus status, EventTitle title,
-        EventDescription description, EventVisibility visibility, EventInterval interval) : base(id)
+        EventDescription description, EventVisibility visibility, EventInterval interval, List<User> guests) : base(id)
     {
         MaximumNumberOfGuests = maximumNumberOfGuests;
         Status = status;
@@ -165,5 +198,6 @@ public class VeaEvent : Aggregate<EventId>
         Description = description;
         Visibility = visibility;
         Interval = interval;
+        Guests = guests ?? [];
     }
 }

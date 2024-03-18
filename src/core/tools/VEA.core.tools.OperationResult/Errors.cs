@@ -105,4 +105,29 @@ public class Errors
     {
         return new Error(400, 10023, "Name should contain only letters");
     }
+    
+    public static Error EventNotActive()
+    {
+        return new Error(400, 10024, "You can only join active events");
+    }
+    
+    public static Error CapacityReached()
+    {
+        return new Error(400, 10025, "Event is full!");
+    }
+    
+    public static Error OngoingEvent()
+    {
+        return new Error(400, 10026, "Event has already started!");
+    }
+    
+    public static Error PrivateEvent()
+    {
+        return new Error(400, 10027, "Only public events can be participated!");
+    }
+    
+    public static Error AlreadyParticipating()
+    {
+        return new Error(400, 10028, "You are already participating in this event!");
+    }
 }

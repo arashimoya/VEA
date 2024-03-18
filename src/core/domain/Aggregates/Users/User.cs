@@ -1,4 +1,7 @@
+using domain.Aggregates.Events;
 using domain.Common.Bases;
+using domain.Common.Contracts;
+using domain.Common.Enums;
 using domain.Common.Values;
 using VEA.core.tools.OperationResult;
 
@@ -26,5 +29,18 @@ public class User : Aggregate<UserId>
     public static Result<User> Create(Name firstName, Name lastName, ViaEmail email)
     {
         return new Result<User>(new User(new UserId(), firstName, lastName, email));
+    }
+
+    public ResultVoid Participate(VeaEvent evt, ICurrentTimeProvider currentTimeProvider)
+    {
+        return evt.RegisterGuestTo(this, currentTimeProvider);
+    }
+    
+
+    internal User(Name firstName, Name lastName, ViaEmail viaEmail, UserId id): base(id)
+    {
+        FirstName = firstName;
+        LastName = lastName;
+        Email = viaEmail;
     }
 }
