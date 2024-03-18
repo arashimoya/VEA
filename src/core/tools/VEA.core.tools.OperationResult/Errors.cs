@@ -91,9 +91,9 @@ public class Errors
         return new Error(400, 10020, "Given value is empty");
     }
 
-    public static Error IsNotValidViaEmail(string value)
+    public static Error IsNotValidViaEmail()
     {
-        return new Error(400, 10021, "This (" + value + ") is not a valid VIA email");
+        return new Error(400, 10021, "Only people with a VIA mail can register");
     }
     
     public static Error NameNotBetween2And25(int length)

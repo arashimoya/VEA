@@ -29,7 +29,7 @@ public class ViaEmailTest
         var result = ViaEmail.Of(input);
         
         Assert.False(result.IsSuccess());
-        Assert.Contains(Errors.IsNotValidViaEmail(input), result.Errors);
+        Assert.Contains(Errors.IsNotValidViaEmail(), result.Errors);
         
     }
 }

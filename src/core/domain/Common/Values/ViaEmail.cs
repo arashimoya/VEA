@@ -32,7 +32,7 @@ public partial class ViaEmail : Email
             return ResultVoid.Success();
         }
 
-        return ResultVoid.SingleFailure(Errors.IsNotValidViaEmail(value));
+        return ResultVoid.SingleFailure(Errors.IsNotValidViaEmail());
     }
 
     private static bool ContainsOnlyThreeOrFourEnglishLetters(string input)

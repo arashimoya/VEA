@@ -61,6 +61,15 @@
 * [ ] UC10
   * [x] Email class
   * [x] ViaEmail class
+  * [x] Name class
+  * [x] S1
+  * [x] F1
+  * [x] F2
+  * [x] F3
+  * [x] F4
+  * [ ] F5 - needs a db to know if already registered
+  * [x] F6
+  * [x] F7
 * [ ] 
 * [ ] 
 * [ ] 
