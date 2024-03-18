@@ -58,8 +58,9 @@
   * [x] S3
   * [x] F1
   * [x] F2
-* [ ]  UC10
+* [ ] UC10
   * [x] Email class
+  * [x] ViaEmail class
 * [ ] 
 * [ ] 
 * [ ] 

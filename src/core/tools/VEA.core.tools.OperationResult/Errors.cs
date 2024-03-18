@@ -90,4 +90,9 @@ public class Errors
     {
         return new Error(400, 10020, "Given value is empty");
     }
+
+    public static Error IsNotValidViaEmail(string value)
+    {
+        return new Error(400, 10021, "This (" + value + ") is not a valid VIA email");
+    }
 }

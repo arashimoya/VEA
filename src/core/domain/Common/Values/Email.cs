@@ -11,6 +11,11 @@ public partial class Email : ValueObject
         Value = value;
     }
 
+    protected Email()
+    {
+        
+    }
+
     public string Value { get; private set; }
 
     public static Result<Email> Of(string value)
@@ -23,11 +28,11 @@ public partial class Email : ValueObject
 
     }
 
-    private static ResultVoid Validate(string value)
+    protected static ResultVoid Validate(string value)
     {
         if (string.IsNullOrWhiteSpace(value))
              return ResultVoid.SingleFailure(Errors.IsEmpty());
-        if (!MyRegex().IsMatch(value))
+        if (!EmailRegex().IsMatch(value))
              return ResultVoid.SingleFailure(Errors.DoesNotMatchEmailPattern(value));
 
         return ResultVoid.Success();
@@ -38,6 +43,6 @@ public partial class Email : ValueObject
     }
 
     [GeneratedRegex(@"^[^\W_](?:[\w-\.]{0,62}[^\W_])?@([^\W_][\w-]*[^\W_]\.)+[a-zA-Z]{2,6}$", RegexOptions.IgnoreCase, "en-PL")]
-    private static partial Regex MyRegex();
+    private static partial Regex EmailRegex();
 
 }
