@@ -95,4 +95,14 @@ public class Errors
     {
         return new Error(400, 10021, "This (" + value + ") is not a valid VIA email");
     }
+    
+    public static Error NameNotBetween2And25(int length)
+    {
+        return new Error(400, 10022, "Name should be between 2 and 25 (Length:"+ length+")");
+    }
+    
+    public static Error InvalidName()
+    {
+        return new Error(400, 10023, "Name should contain only letters");
+    }
 }
