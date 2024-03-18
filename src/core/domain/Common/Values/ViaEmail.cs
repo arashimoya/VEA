@@ -18,7 +18,7 @@ public partial class ViaEmail : Email
 
         if (!emailResult.IsSuccess()) return new Result<ViaEmail>(emailResult.Errors);
         var viaResult = Validate(value);
-        return viaResult.IsSuccess() ? new Result<ViaEmail>(new ViaEmail(value)) : new Result<ViaEmail>(viaResult.Errors);
+        return viaResult.IsSuccess() ? new Result<ViaEmail>(new ViaEmail(value.ToLower())) : new Result<ViaEmail>(viaResult.Errors);
 
     }
 

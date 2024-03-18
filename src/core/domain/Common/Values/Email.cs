@@ -22,7 +22,7 @@ public partial class Email : ValueObject
     {
         var validation = Validate(value);
         if (validation.IsSuccess())
-            return new Result<Email>(new Email(value));
+            return new Result<Email>(new Email(value.ToLower()));
 
         return new Result<Email>(validation.Errors);
 

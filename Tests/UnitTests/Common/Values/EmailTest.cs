@@ -68,4 +68,19 @@ public class EmailTest
         Assert.False(result.IsSuccess());
         Assert.Contains(Errors.DoesNotMatchEmailPattern(str), result.Errors);
     }
+    
+    [Fact]
+    public void should_return_email_in_lower_case()
+    {
+
+        var str = "example@exampledomain.com".ToUpper();
+        //when
+        var result = Email.Of("example@exampledomain.com");
+        
+        //then
+        Assert.True(result.IsSuccess());
+        Assert.NotNull(result.GetSuccess());
+        Assert.NotNull(result.GetSuccess().Value);
+        Assert.Equal(str.ToLower(), result.GetSuccess().Value);
+    }
 }

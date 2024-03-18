@@ -11,7 +11,7 @@ public class ViaEmailTest
     [InlineData("ada@via.dk")]
     public void should_create_a_via_email(string input)
     {
-        var result = ViaEmail.Of(input);
+        var result = ViaEmail.Of(input.ToUpper());
         
         Assert.True(result.IsSuccess());
         Assert.NotNull(result.GetSuccess());
@@ -30,5 +30,6 @@ public class ViaEmailTest
         
         Assert.False(result.IsSuccess());
         Assert.Contains(Errors.IsNotValidViaEmail(input), result.Errors);
+        
     }
 }
