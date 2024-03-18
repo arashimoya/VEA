@@ -23,4 +23,14 @@ public class ResultVoid
     {
         return new ResultVoid([error]);
     }
+    
+    public static ResultVoid Success()
+    {
+        return new ResultVoid();
+    }
+
+    public static ResultVoid Func(Func<IEnumerable<Error>> func)
+    {
+        return new ResultVoid(func().ToList());
+    }
 }

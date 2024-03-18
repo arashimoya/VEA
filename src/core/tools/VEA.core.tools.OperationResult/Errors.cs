@@ -81,4 +81,13 @@ public class Errors
     {
         return new Error(400, 10018, "Start date cannot be prior to readying the event.");
     }
+
+    public static Error DoesNotMatchEmailPattern(string value)
+    {
+        return new Error(400, 10019, "This (" + value + ") is not a valid email");
+    }
+    public static Error IsEmpty()
+    {
+        return new Error(400, 10020, "Given value is empty");
+    }
 }
